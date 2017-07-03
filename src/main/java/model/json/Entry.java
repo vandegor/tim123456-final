@@ -1,13 +1,18 @@
 package model.json;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 public class Entry {
     private int id;
-    private Date date;
+    @JsonIgnore
+    private Date dateDate;
     private String subject;
     private String content;
     private List<Comment> comments;
@@ -19,13 +24,25 @@ public class Entry {
     public Entry(String title) {
     }
 
-    public Date getDate() {
-        return date;
+    public Date getDateDate() {
+        return dateDate;
+    }
+
+    public void setDateDate(Date dateDate) {
+        this.dateDate = dateDate;
+    }
+
+    public String getDate() {
+        return new SimpleDateFormat ("yyyy-MM-dd").format (dateDate);
 
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setDate(String date) {
+        try {
+            this.dateDate = new SimpleDateFormat ("yyyy-MM-dd").parse (date);
+        } catch (ParseException e) {
+            e.printStackTrace ();
+        }
     }
 
     public String getSubject() {

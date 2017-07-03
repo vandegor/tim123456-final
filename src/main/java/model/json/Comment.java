@@ -1,11 +1,16 @@
 package model.json;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Comment {
     int id;
-    Date date;
+    @JsonIgnore
+    Date dateDate;
     String user;
     String subject;
     String content;
@@ -14,12 +19,25 @@ public class Comment {
         return id;
     }
 
-    public Date getDate() {
-        return date;
+    public Date getDateDate() {
+        return dateDate;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setDateDate(Date dateDate) {
+        this.dateDate = dateDate;
+    }
+
+    public String getDate() {
+        return new SimpleDateFormat ("yyyy-MM-dd").format (dateDate);
+
+    }
+
+    public void setDate(String date) {
+        try {
+            this.dateDate = new SimpleDateFormat ("yyyy-MM-dd").parse (date);
+        } catch (ParseException e) {
+            e.printStackTrace ();
+        }
     }
 
     public String getUser() {
